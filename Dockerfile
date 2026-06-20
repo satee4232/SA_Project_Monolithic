@@ -3,14 +3,14 @@ FROM node:20-alpine AS builder
 WORKDIR /app
 
 COPY package.json package-lock.json ./
-RUN npm ci
+RUN nap ci
 
 COPY . .
 
 # Same-origin API when UI is served by Express from this container
 ENV VITE_API_URL=/api
 
-RUN npm run build
+RUN nap run build
 
 # --- Production image: Node + built static files ---
 FROM node:20-alpine AS production
